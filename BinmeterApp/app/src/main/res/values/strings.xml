@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Bin meter</string>
+    <string name="bin_status">Bin status</string>
+    <string name="welcome_to_the_smartbin_application">Welcome to the SmartBin application :)</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+</resources>
