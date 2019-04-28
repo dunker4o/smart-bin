@@ -16,7 +16,7 @@ public class BinStatus extends AppCompatActivity {
         Thread scrapeThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                final Scraper scrap = new Scraper("http://192.168.0.4");
+                final Scraper scrap = new Scraper("http://192.168.4.1");
 
                 while(true){
                     try {
