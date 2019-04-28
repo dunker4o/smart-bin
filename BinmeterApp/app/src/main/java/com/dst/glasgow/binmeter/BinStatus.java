@@ -1,22 +1,34 @@
 package com.dst.glasgow.binmeter;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.preference.PreferenceManager;
 
 import org.w3c.dom.Text;
 
 public class BinStatus extends AppCompatActivity {
+
+    public String binURL;
+    private SharedPreferences prefs;
+
+    public void setIP(String url){
+        binURL = "http://" + url;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bin_status);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setIP(prefs.getString("bin_url", "192.168.4.1"));
+
         Thread scrapeThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                final Scraper scrap = new Scraper("http://192.168.4.1");
+                final Scraper scrap = new Scraper(binURL);
 
                 while(true){
                     try {
