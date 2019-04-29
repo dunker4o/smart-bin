@@ -1,0 +1,1 @@
+"""Example SmartBin integration."""
