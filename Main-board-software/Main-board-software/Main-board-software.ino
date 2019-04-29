@@ -44,7 +44,7 @@ int en_pin = 18;
 float noRevs = 1;
 int state;
 
-#define BIN_RPM 280
+#define BIN_RPM 380
 #define BIN_DELAY_MS 500
 
 void pollSensor1(){
@@ -176,16 +176,15 @@ void open_accel(int max_rpm, Stepper stepper){
 
   Serial.println("opening");
   enable_stepper(en_pin);
-  
+   
   for (int i = 1; i<11; i++){
-    stepper.setSpeed(i*max_rpm/10);
+    stepper.setSpeed(i*max_rpm/11);
     stepper.step(4+i);
     }
+   stepper.step(500);
 
-  stepper.step(500);
-
-  for (int i = 10; i<0; i--){
-    stepper.setSpeed(i*max_rpm/10);
+  for (int i = 11; i>0; i--){
+    stepper.setSpeed(i*max_rpm/11);
     stepper.step(4+i);
     }
     
@@ -206,7 +205,7 @@ void close_accel(int max_rpm, Stepper stepper){
 
   stepper.step(-500);
 
-  for (int i = 10; i<0; i--){
+  for (int i = 10; i>0; i--){
     stepper.setSpeed(i*max_rpm/10);
     stepper.step(-4-i);
     }
