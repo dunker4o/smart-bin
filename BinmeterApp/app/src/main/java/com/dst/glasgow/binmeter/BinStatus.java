@@ -98,7 +98,9 @@ public class BinStatus extends AppCompatActivity {
                                     capacityView.setText("FULL");
                                     percentView.setText("0%");
                                     if(prefs.getBoolean("notifications_new_message", true)) {
-                                        sendNotification(findViewById(android.R.id.content), "Bin has been filled. Time to clean it up.");
+                                        String binName = prefs.getString("bin_name", "Test01");
+                                        String notificationMessage = binName + " has been filled. Time to clean it up.";
+                                        sendNotification(findViewById(android.R.id.content), notificationMessage);
                                     }
                                 } else {
                                     capacityView.setText("Overflowing");
@@ -155,6 +157,7 @@ public class BinStatus extends AppCompatActivity {
     NotificationManager mNotification = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     PendingIntent notifyPIntent =
                 PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+
 
     Notification toNotify = new Notification.Builder
                 (getApplicationContext()).setContentTitle("Smart Bin").setContentText(notification).
