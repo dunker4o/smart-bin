@@ -1,2 +1,2 @@
-# Smart-bin
-Project for automatic bin opening and live data reporting
+# Smart Bin
+Project for handsfree bin interaction and Wireless data reporting. More Readme updates to follow soon.
