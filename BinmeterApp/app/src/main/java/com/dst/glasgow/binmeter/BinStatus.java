@@ -44,6 +44,11 @@ public class BinStatus extends AppCompatActivity {
             distanceLayout.setVisibility(View.GONE);
         }
 
+        if(prefs.getBoolean("display_capacity_percent", false) == false){
+            TextView percentView = (TextView) findViewById(R.id.cap_percent);
+            percentView.setVisibility(View.GONE);
+        }
+
         Thread scrapeThread = new Thread(new Runnable() {
             @Override
             public void run() {

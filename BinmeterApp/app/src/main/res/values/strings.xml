@@ -116,4 +116,5 @@ and we will help you as much as we can.\n"
     </string>
     <string name="pref_title_display_debug">Display debug readings</string>
     <string name="pref_title_display_percentage">Display bin capacity percentage</string>
+    <string name="pref_title_display_percent">Display capacity in percents</string>
 </resources>
