@@ -1,5 +1,8 @@
 package com.dst.glasgow.binmeter;
 
+import android.util.Log;
+
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -10,10 +13,12 @@ public class Scraper {
 	private Document document;
 	private String distance;
 	private String duration;
+	private boolean isEmpty;
 	
 	public Scraper(String url) {
 		super();
 		this.url = url;
+		this.isEmpty = true;
 	}
 
 	public Scraper() {
@@ -37,7 +42,17 @@ public class Scraper {
 	}
 	
 	public void scrapeDocument() throws Exception{
-		this.document = Jsoup.connect(url).get();
+		try{
+			this.document = Jsoup.connect(url).get();
+			isEmpty = false;
+		}catch(HttpStatusException e){
+			e.printStackTrace();
+			isEmpty = true;
+		}
+	}
+
+	public boolean isEmpty(){
+		return this.isEmpty;
 	}
 
 	public String getDistance() {

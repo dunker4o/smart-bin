@@ -1,6 +1,14 @@
 package com.dst.glasgow.binmeter;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,39 +56,50 @@ public class BinStatus extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    scrap.updateDistance();
-                    scrap.updateDuration();
+                    if(!scrap.isEmpty()) {
+                        scrap.updateDistance();
+                        scrap.updateDuration();
 
-                    //This bit updates the fields. It has to be ran on the UI thread
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            currentDistance = Double.parseDouble(scrap.getDistance());
+                        //This bit updates the fields. It has to be ran on the UI thread
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                currentDistance = Double.parseDouble(scrap.getDistance());
 
-                            TextView durationView = (TextView) findViewById(R.id.duration_val);
-                            durationView.setText(scrap.getDuration());
+                                TextView durationView = (TextView) findViewById(R.id.duration_val);
+                                durationView.setText(scrap.getDuration());
 
-                            TextView distanceView = (TextView) findViewById(R.id.distance_val);
-                            distanceView.setText(scrap.getDistance());
+                                TextView distanceView = (TextView) findViewById(R.id.distance_val);
+                                distanceView.setText(scrap.getDistance());
 
-                            TextView capacityView = (TextView) findViewById(R.id.bin_cap);
-                            if(currentDistance > 50){
-                                capacityView.setText("Empty.");
-                            }else if(currentDistance > 34){
-                                capacityView.setText("Barely anything in it.");
-                            }else if(currentDistance > 23){
-                                capacityView.setText("Halfway full.");
-                            }else if(currentDistance > 11){
-                                capacityView.setText("Almost full.");
-                            } else if (currentDistance > 5) {
-                                capacityView.setText("FULL!");
-                            } else{
-                                capacityView.setText("Overflowing.");
+                                TextView capacityView = (TextView) findViewById(R.id.bin_cap);
+                                TextView percentView = (TextView) findViewById(R.id.cap_percent);
+                                if (currentDistance > 50) {
+                                    capacityView.setText("Empty");
+                                    percentView.setText("100%");
+                                } else if (currentDistance > 34) {
+                                    capacityView.setText("Barely anything in it");
+                                    percentView.setText("75%");
+                                } else if (currentDistance > 23) {
+                                    capacityView.setText("Halfway full");
+                                    percentView.setText("50%");
+                                } else if (currentDistance > 11) {
+                                    capacityView.setText("Almost full");
+                                    percentView.setText("25%");
+                                } else if (currentDistance > 5) {
+                                    capacityView.setText("FULL");
+                                    percentView.setText("0%");
+                                    if(prefs.getBoolean("notifications_new_message", true)) {
+                                        sendNotification(findViewById(android.R.id.content), "Bin has been filled. Time to clean it up.");
+                                    }
+                                } else {
+                                    capacityView.setText("Overflowing");
+                                    percentView.setText("-10%");
+                                }
+
                             }
-
-                        }
-                    });
-
+                        });
+                    }
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
@@ -92,7 +111,52 @@ public class BinStatus extends AppCompatActivity {
             }
         });
         scrapeThread.start();
+    }
 
+    public void sendNotification(View v, String notification){
+
+
+    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    // The id of the channel.
+    String id = "sBin_channel_01";
+
+    // The user-visible name of the channel.
+    CharSequence name = "Smart Bin";
+
+    // The user-visible description of the channel.
+    String description = "Smart Bin notifications";
+
+    int importance = NotificationManager.IMPORTANCE_LOW;
+
+    NotificationChannel mChannel = new NotificationChannel(id, name,importance);
+
+    // Configure the notification channel.
+    mChannel.setDescription(description);
+
+    mChannel.enableLights(true);
+    // Sets the notification light color for notifications posted to this
+    // channel, if the device supports this feature.
+    mChannel.setLightColor(Color.RED);
+
+    mChannel.enableVibration(true);
+    mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+    mNotificationManager.createNotificationChannel(mChannel);
+
+
+    NotificationManager mNotification = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    PendingIntent notifyPIntent =
+                PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+
+    Notification toNotify = new Notification.Builder
+                (getApplicationContext()).setContentTitle("Smart Bin").setContentText(notification).
+                setSmallIcon(R.mipmap.ic_launcher_foreground).setChannelId(id).
+            setContentIntent(notifyPIntent).build();
+
+
+
+    toNotify.flags |= Notification.FLAG_AUTO_CANCEL;
+    mNotification.notify(001, toNotify);
 
     }
 }
