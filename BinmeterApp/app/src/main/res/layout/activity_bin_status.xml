@@ -27,6 +27,35 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="Bin capacity:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/bin_cap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/distance_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,8 +76,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/duration_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

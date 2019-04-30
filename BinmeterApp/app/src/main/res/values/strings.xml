@@ -80,4 +80,40 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- About page strings from now on -->
+
+    <string name="title_activity_about">About</string>
+    <string name="large_text">
+        "Welcome to our Smart Bin application.\n\n"
+        "This project was created as part of a class at University of Glasgow. The idea is to make"
+        " an open-source smart automatic bin that allows its user to interact with it in a (mostly) "
+        "touch-free manner. It also provides this phone app that reports the capacity and some debug"
+        " information along with the software needed to integrate it to the open source "
+        "<a href="https://www.home-assistant.io/">Home Assistant hub</a>.\n"
+
+"You can find most of the project in our <a href="https://github.com/dunker4o/smart-bin">GitHub repository</a>."
+"Most required libraries to compile any portion of the code are included in the project with a few minor exceptions, which can be downloaded from the respective Arduino and python package managers freely."
+"There are also hardware schematics and PCB drawings available, all done in EAGLE.\n"
+
+"Areas of project responsibility.\n"
+
+"The project was done by a group of three. As such, each one of us was overseeing different parts of the project. Below is a simple breakdown of the areas each one was involved in.
+It\'s just an indicative list who might be able to help best if you need help with any
+particular bits of the project.\n"
+"Ruigang Chen - Main board (ultrasound sensors and PCB layout), Arduino software\n"
+"Ronaldas Gadzimugometovas - Motors, motor drivers, Arduino software\n"
+"Borislav Gachev - ESP8266 PCB and software, Android application, Home Assistant integration\n"
+
+"Further help with the project.\n"
+
+"Although continued support for this project has not been secured in place, we will probably
+still be able to support anyone interested in the active development of it. Whether you are
+just curious or want to actively work on it, just get in touch either over GitHub or email
+and we will help you as much as we can.\n"
+    </string>
+    <string name="pref_title_display_debug">Display debug readings</string>
+    <string name="pref_title_display_percentage">Display bin capacity percentage</string>
 </resources>
