@@ -5,8 +5,6 @@ import voluptuous as vol
 
 import homeassistant.helpers.config_validation as cv
 # Import the device class from the component that you want to support
-from homeassistant.components.light import (
-    ATTR_BRIGHTNESS, PLATFORM_SCHEMA, Light)
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 
 _LOGGER = logging.getLogger(__name__)
@@ -78,7 +76,7 @@ class SmartBin(sBin):
     @property
     def is_full(self):
         """Return true if bin is full."""
-        return self._state
+        return (self._distance < 2)
 
 
     def update(self):

@@ -2,7 +2,7 @@
   "domain": "smart_bin",
   "name": "Smart Bin",
   "documentation": "https://github.com/dunker4o/smart-bin/tree/master/Home%20Assistant%20Integration",
-  "dependencies": [],
+  "dependencies": ["smartbin"],
   "codeowners": ["Borislav Gachev"],
   "requirements": ["smartbin==1.0"]
 }
